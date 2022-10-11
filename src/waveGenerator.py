@@ -14,3 +14,9 @@ def createWaveArray(frequency, amplitude, numSamples):
 
   return waveArray
 
+class Mode:
+  def __init__(self, frequency, amplitude, numSamples):
+    self.waveArray = createWaveArray(frequency, amplitude, numSamples)
+
+  def getWaveArray(self):
+    return self.waveArray

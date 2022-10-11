@@ -1,24 +1,26 @@
+import numpy as np
+
 import main
 import waveGenerator as wg
 
-def additiveSquareWave():
-  mode1 = wg.createWaveArray(main.baseFrequency * 1, 1, main.sampleNumber)
-  mode3 = wg.createWaveArray(main.baseFrequency * 3, (1/3), main.sampleNumber)
-  mode5 = wg.createWaveArray(main.baseFrequency * 5, (1/5), main.sampleNumber)
-  mode7 = wg.createWaveArray(main.baseFrequency * 7, (1/7), main.sampleNumber)
-  mode9 = wg.createWaveArray(main.baseFrequency * 9, (1/9), main.sampleNumber)
-  mode11 = wg.createWaveArray(main.baseFrequency * 11, (1/11), main.sampleNumber)
-  mode13 = wg.createWaveArray(main.baseFrequency * 13, (1/13), main.sampleNumber)
-  mode15 = wg.createWaveArray(main.baseFrequency * 15, (1/15), main.sampleNumber)
+def additiveSquareWave(numModes):
+  modeList = []
 
-  finalWave = mode1 + mode3 + mode5 + mode7 + mode9 + mode11 + mode13 + mode15
+  for i in range(1, numModes + 1, 2):
+    modeList.append(wg.Mode(main.baseFrequency * i, 1/i, main.sampleNumber))
+
+  finalWave = np.zeros(len(modeList[0].getWaveArray()))
+
+  for i in modeList:
+    finalWave = finalWave + i.getWaveArray()
 
   return finalWave
 
 def clampedSquareWave():
-  mode1 = wg.createWaveArray(main.baseFrequency * 1, 1, main.sampleNumber)
+  Mode1 = wg.Mode(main.baseFrequency * 1, 1, main.sampleNumber)
+  mode1Wave = Mode1.getWaveArray()
 
-  mode1[mode1 >= 0] = 1
-  mode1[mode1 < 0] = -1
+  mode1Wave[mode1Wave > 0] = 1
+  mode1Wave[mode1Wave < 0] = -1
 
-  return mode1
+  return mode1Wave
