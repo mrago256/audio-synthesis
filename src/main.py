@@ -38,7 +38,7 @@ setSamplesGraphed(235)
 # prevents ALSA underrun most times
 plt.title("")
 
-if __name__ == "__main__":
+def main():
   additiveSquare = sw.additiveSquareWave(numHarmonics)
   clampedSquare = sw.clampedSquareWave()
 
@@ -72,3 +72,6 @@ if __name__ == "__main__":
   t2.join()
   t3.join()
   t4.join()
+
+if __name__ == "__main__":
+  main()
